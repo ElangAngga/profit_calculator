@@ -7,28 +7,29 @@ func main() {
 	var expenses float64
 	var taxRate float64
 
-	fmt.Print("Revenue: ")
-	fmt.Scan(&revenue)
+	revenue = getInputUser("Revenue: ")
+	expenses = getInputUser("Expenses: ")
+	taxRate = getInputUser("Tax Rate: ")
 
-	fmt.Print("Expenses: ")
-	fmt.Scan(&expenses)
+	ebt, profit, ratio := calculatingFinancial(revenue, expenses, taxRate)
 
-	fmt.Print("Tax Rate: ")
-	fmt.Scan(&taxRate)
+	fmt.Printf("EBT: %.1f\n", ebt)
 
-	var earningBeforeTax = revenue - expenses
+	fmt.Printf("Profit: %.1f\n", profit)
 
-	var profit = earningBeforeTax * (1 - taxRate/100)
+	fmt.Printf("Ratio: %.3f\n", ratio)
+}
 
-	var ratio = earningBeforeTax / profit
+func getInputUser(userInput string) float64 {
+	var inputUser float64
+	fmt.Print(userInput)
+	fmt.Scan(&inputUser)
+	return inputUser
+}
 
-	fmt.Print("EBT: ", earningBeforeTax)
-	fmt.Println()
-
-	fmt.Print("Profit: ", profit)
-	fmt.Println()
-
-	fmt.Println("Ratio: ", ratio)
-	fmt.Println()
-
+func calculatingFinancial(revenue, expenses, taxRate float64) (float64, float64, float64) {
+	earningBeforeTax := revenue - expenses
+	profit := earningBeforeTax * (1 - taxRate/100)
+	ratio := earningBeforeTax / profit
+	return earningBeforeTax, profit, ratio
 }
